@@ -21,17 +21,20 @@ const sampleData = [
 
 const List = (props) => {
   const { title, type } = props;
+
   return (
-    <ListDiv>
-      {title}
-      <WrapCont>
-        {type === "Top"
-          ? sampleData.map((s, index) => (
-              <Top img={s.img} index={s.index} key={index} rank={s.rank} />
-            ))
-          : sampleData.map((s, index) => <Movie img={s.img} key={index} />)}
-      </WrapCont>
-    </ListDiv>
+    <>
+      <ListDiv>
+        {title}
+        <WrapCont>
+          {type === "Top"
+            ? sampleData.map((s, index) => (
+                <Top img={s.img} index={s.index} key={index} rank={s.rank} />
+              ))
+            : sampleData.map((s, index) => <Movie img={s.img} key={index} />)}
+        </WrapCont>
+      </ListDiv>
+    </>
   );
 };
 

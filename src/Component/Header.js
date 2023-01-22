@@ -27,6 +27,11 @@ const Header = () => {
 export default Header;
 
 const HeaderDiv = styled.div`
+  top: 0;
+  left: 0;
+  right: 0;
+  position: fixed;
+  z-index: 1;
   display: flex;
   width: 100%;
   height: 4rem;
