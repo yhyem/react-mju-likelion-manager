@@ -6,6 +6,7 @@ const Movie = (props) => {
   const { img } = props;
   const [clicked, setClicked] = useState(false);
   const [ModalOpen, setModalOpen] = useState(false);
+  const IMAGE_URL = "https://image.tmdb.org/t/p/w500";
 
   const openModal = () => {
     setModalOpen(true);
@@ -18,9 +19,14 @@ const Movie = (props) => {
     document.body.style.overflow = "unset";
   };
 
+  console.log(IMAGE_URL + img);
+
   return (
     <>
-      <TitleImg src={img} onClick={() => openModal()}></TitleImg>
+      <TitleImg
+        src={img ? IMAGE_URL + img : ""}
+        onClick={() => openModal()}
+      ></TitleImg>
       <Modal
         open={ModalOpen}
         close={closeModal}

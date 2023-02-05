@@ -1,37 +1,43 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 import styled from "styled-components";
 import Top from "./Top";
 import Movie from "./Movie";
-import sample from "../img/movie.png";
-import icon1 from "../img/1.png";
-import icon2 from "../img/2.png";
-import icon3 from "../img/3.png";
-import icon4 from "../img/4.png";
-import icon5 from "../img/5.png";
-import icon6 from "../img/6.png";
 
-const sampleData = [
-  { index: 1, img: sample, rank: icon1 },
-  { index: 2, img: sample, rank: icon2 },
-  { index: 3, img: sample, rank: icon3 },
-  { index: 4, img: sample, rank: icon4 },
-  { index: 5, img: sample, rank: icon5 },
-  { index: 6, img: sample, rank: icon6 },
-];
+const apiKey = process.env.REACT_APP_API_KEY;
 
 const List = (props) => {
   const { title, type } = props;
+  const [movies, setMovies] = useState([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get(
+          `https://api.themoviedb.org/3/movie/${type}?api_key=${apiKey}&language=en-US&page=1`
+        );
+        setMovies(response.data.results);
+      } catch (e) {
+        console.log(e);
+      }
+    };
+    fetchData();
+  }, [type]);
+
+  console.log(movies);
 
   return (
     <>
       <ListDiv>
         {title}
         <WrapCont>
-          {type === "Top"
-            ? sampleData.map((s, index) => (
-                <Top img={s.img} index={s.index} key={index} rank={s.rank} />
+          {type === "top_rated"
+            ? movies.map((s, index) => (
+                <Top img={s.poster_path} index={index} key={index} />
               ))
-            : sampleData.map((s, index) => <Movie img={s.img} key={index} />)}
+            : movies.map((s, index) => (
+                <Movie img={s.backdrop_path} key={index} />
+              ))}
         </WrapCont>
       </ListDiv>
     </>
